@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "slice-bin"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Naoya Yamashita <conao3@gmail.com>"]
 license = "Apache-2.0"
