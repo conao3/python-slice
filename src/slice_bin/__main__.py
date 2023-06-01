@@ -9,11 +9,10 @@ def usage():
     print("Usage: slice EXPRESSION")
 
 
-def main1(inpt: TextIO, start: Optional[int]):
-    if start is None:
-        raise Exception("Unreachable")
+def main1(inpt: TextIO, args: list[Optional[int]]):
+    start = args[0] or 0
 
-    if lib.is_minus(start):
+    if start < 0:
         itr = lib.tail(inpt, -start)
         print(next(itr), end='')
         return
@@ -22,27 +21,36 @@ def main1(inpt: TextIO, start: Optional[int]):
     print(next(inpt), end='')
 
 
-def main2(inpt: TextIO, start: Optional[int], end: Optional[int]):
-    if lib.is_minus(start):
+def main2(inpt: TextIO, args: list[Optional[int]]):
+    start = args[0] or 0
+    end = args[1] or sys.maxsize
+
+    if start < 0:
         itr = lib.tail(inpt, -start)
-        islice_stop = lib.minus(end, -start)
-        if lib.is_minus(islice_stop):
+        islice_stop = start + end
+        if islice_stop < 0:
             return
 
         for line in itertools.islice(itr, islice_stop):
             print(line, end='')
         return
 
-    if lib.is_minus(end):
-        lib.slice_with_list(inpt, [start, end])
+    if end < 0:
+        itr = itertools.islice(inpt, start, None)
+        for line in list(itr)[:end]:
+            print(line, end='')
         return
 
     for line in itertools.islice(inpt, start, end):
         print(line, end='')
 
 
-def main3(inpt: TextIO, start: Optional[int], end: Optional[int], step: Optional[int]):
-    if lib.is_minus(start) or lib.is_minus(end) or lib.is_minus(step):
+def main3(inpt: TextIO, args: list[Optional[int]]):
+    start = args[0] or 0
+    end = args[1] or sys.maxsize
+    step = args[2] or 1
+
+    if start < 0 or end < 0 or step < 0:
         lib.slice_with_list(inpt, [start, end, step])
         return
 
@@ -61,10 +69,10 @@ def main():
     len_args = len(args)
 
     if len_args == 1:
-        main1(sys.stdin, args[0])
+        main1(sys.stdin, args)
     elif len_args == 2:
-        main2(sys.stdin, args[0], args[1])
+        main2(sys.stdin, args)
     elif len_args == 3:
-        main3(sys.stdin, args[0], args[1], args[2])
+        main3(sys.stdin, args)
     else:
         lib.slice_with_list(sys.stdin, args)
