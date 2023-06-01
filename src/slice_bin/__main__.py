@@ -1,3 +1,4 @@
+import itertools
 import sys
 from typing import Optional, TextIO
 
@@ -18,6 +19,19 @@ def main1(inpt: TextIO, start: Optional[int]):
 
     lib.consume(inpt, start)
     print(next(inpt), end='')
+
+
+def main2(inpt: TextIO, start: Optional[int], end: Optional[int]):
+    if lib.is_minus(start):
+        lib.slice_with_list(inpt, [start, end])
+        return
+
+    if lib.is_minus(end):
+        lib.slice_with_list(inpt, [start, end])
+        return
+
+    for line in itertools.islice(inpt, start, end):
+        print(line, end='')
 
 
 def main():
