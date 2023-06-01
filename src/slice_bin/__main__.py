@@ -1,6 +1,6 @@
 import itertools
 import sys
-from typing import Optional, TextIO
+from typing import Iterator, Optional, TextIO
 
 from . import lib
 
@@ -9,39 +9,33 @@ def usage():
     print("Usage: slice EXPRESSION")
 
 
-def main1(inpt: TextIO, args: list[Optional[int]]):
-    start = args[0] or 0
+def generator_start_stop(inpt: TextIO, start_: Optional[int], stop_: Optional[int]) -> Iterator[str]:
+    start = start_ or 0
+    stop = stop_ or sys.maxsize
 
     if start < 0:
         itr = lib.tail(inpt, -start)
-        print(next(itr), end='')
-        return
+        islice_stop = start + stop
+        if islice_stop < 0:
+            return iter(())
 
-    lib.consume(inpt, start)
-    print(next(inpt), end='')
+        return itertools.islice(itr, islice_stop)
+
+    if stop < 0:
+        itr = itertools.islice(inpt, start, None)
+        return iter(list(itr)[:stop])
+
+    return itertools.islice(inpt, start, stop)
+
+
+def main1(inpt: TextIO, args: list[Optional[int]]):
+    for line in generator_start_stop(inpt, args[0], None):
+        print(line, end='')
+        return
 
 
 def main2(inpt: TextIO, args: list[Optional[int]]):
-    start = args[0] or 0
-    end = args[1] or sys.maxsize
-
-    if start < 0:
-        itr = lib.tail(inpt, -start)
-        islice_stop = start + end
-        if islice_stop < 0:
-            return
-
-        for line in itertools.islice(itr, islice_stop):
-            print(line, end='')
-        return
-
-    if end < 0:
-        itr = itertools.islice(inpt, start, None)
-        for line in list(itr)[:end]:
-            print(line, end='')
-        return
-
-    for line in itertools.islice(inpt, start, end):
+    for line in generator_start_stop(inpt, args[0], args[1]):
         print(line, end='')
 
 
