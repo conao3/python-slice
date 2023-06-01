@@ -7,6 +7,9 @@ def slice_with_list(inpt: TextIO, args: list[Optional[int]]) -> None:
 
     if len_args == 1:
         start, = args
+        if start is None:
+            raise Exception("Unreachable")
+
         print(list(inpt)[start], end='')
 
     elif len_args == 2:
