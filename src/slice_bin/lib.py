@@ -30,9 +30,9 @@ def slice_with_list(inpt: TextIO, args: list[Optional[int]]) -> None:
         raise Exception("Invalid number of arguments")
 
 
-def consume(textio: TextIO, n: int) -> None:
+def consume(textio: Iterator[Any] | TextIO, n: int) -> None:
     for _ in range(n):
-        next(textio)
+        next(textio, None)
 
 
 def tail(textio: TextIO, n: int) -> Iterator[str]:

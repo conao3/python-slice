@@ -45,12 +45,13 @@ def main3(inpt: TextIO, args: list[Optional[int]]):
     step = args[2] or 1
 
     if step < 0:
-        lib.slice_with_list(inpt, [start, end, step])
-        return
+        step = -step
+        inpt: TextIO = iter(reversed(list(inpt)))
 
     itr = generator_start_stop(inpt, start, end)
-    while (elm := lib.nth(itr, step - 1)) is not None:
+    while (elm := next(itr, None)) is not None:
         print(elm, end='')
+        lib.consume(itr, step - 1)
 
 
 def main():
