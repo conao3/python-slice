@@ -5,8 +5,10 @@
 Install `slice-bin` from PyPI, which will install `slice` as a command line tool.
 
 ```bash
-pip install slice-bin
+pipx install slice-bin
 ```
+
+(I recommend installing with [pipx](https://pypa.github.io/pipx), which creates a virtual environment dedicated to `slice-bin` and allows you to use the `slice` command globally.)
 
 ## Usage
 
