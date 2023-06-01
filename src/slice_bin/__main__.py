@@ -22,15 +22,20 @@ def main1(inpt: TextIO, start: Optional[int]):
 
 
 def main2(inpt: TextIO, start: Optional[int], end: Optional[int]):
-    if lib.is_minus(start):
-        lib.slice_with_list(inpt, [start, end])
-        return
-
-    if lib.is_minus(end):
+    if lib.is_minus(start) or lib.is_minus(end):
         lib.slice_with_list(inpt, [start, end])
         return
 
     for line in itertools.islice(inpt, start, end):
+        print(line, end='')
+
+
+def main3(inpt: TextIO, start: Optional[int], end: Optional[int], step: Optional[int]):
+    if lib.is_minus(start) or lib.is_minus(end) or lib.is_minus(step):
+        lib.slice_with_list(inpt, [start, end, step])
+        return
+
+    for line in itertools.islice(inpt, start, end, step):
         print(line, end='')
 
 
