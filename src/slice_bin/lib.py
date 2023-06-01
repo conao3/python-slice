@@ -1,5 +1,6 @@
+import collections
 from typing import Any, Optional, TextIO
-from collections.abc import Generator
+from collections.abc import Iterator
 
 
 def slice_with_list(inpt: TextIO, args: list[Optional[int]]) -> None:
@@ -26,9 +27,13 @@ def slice_with_list(inpt: TextIO, args: list[Optional[int]]) -> None:
         raise Exception("Invalid number of arguments")
 
 
-def consume(iter: TextIO, n: int) -> None:
+def consume(textio: TextIO, n: int) -> None:
     for _ in range(n):
-        next(iter)
+        next(textio)
+
+
+def tail(textio: TextIO, n: int) -> Iterator[str]:
+    return iter(collections.deque(textio, maxlen=n))
 
 
 def is_minus(n: Optional[int]) -> bool:

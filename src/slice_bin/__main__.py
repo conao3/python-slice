@@ -14,7 +14,8 @@ def main1(inpt: TextIO, start: Optional[int]):
         raise Exception("Unreachable")
 
     if lib.is_minus(start):
-        lib.slice_with_list(inpt, [start])
+        itr = lib.tail(inpt, -start)
+        print(next(itr), end='')
         return
 
     lib.consume(inpt, start)
