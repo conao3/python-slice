@@ -1,4 +1,5 @@
 import collections
+import itertools
 import typing
 from typing import Any, Optional, TextIO
 from collections.abc import Iterator
@@ -36,6 +37,10 @@ def consume(textio: TextIO, n: int) -> None:
 
 def tail(textio: TextIO, n: int) -> Iterator[str]:
     return iter(collections.deque(textio, maxlen=n))
+
+
+def nth(iterable, n, default=None):
+    return next(itertools.islice(iterable, n, None), default)
 
 
 def is_minus(n: Optional[int]) -> typing.TypeGuard[int]:

@@ -44,12 +44,13 @@ def main3(inpt: TextIO, args: list[Optional[int]]):
     end = args[1] or sys.maxsize
     step = args[2] or 1
 
-    if start < 0 or end < 0 or step < 0:
+    if step < 0:
         lib.slice_with_list(inpt, [start, end, step])
         return
 
-    for line in itertools.islice(inpt, start, end, step):
-        print(line, end='')
+    itr = generator_start_stop(inpt, start, end)
+    while (elm := lib.nth(itr, step - 1)) is not None:
+        print(elm, end='')
 
 
 def main():
