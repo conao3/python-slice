@@ -23,7 +23,7 @@ def slice_with_list(inpt: TextIO, args: list[Optional[int]]) -> None:
         raise Exception("Invalid number of arguments")
 
 
-def consume(iter: Generator[Any, Any, Any], n: int) -> None:
+def consume(iter: TextIO, n: int) -> None:
     for _ in range(n):
         next(iter)
 
