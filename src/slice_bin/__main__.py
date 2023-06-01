@@ -23,7 +23,17 @@ def main1(inpt: TextIO, start: Optional[int]):
 
 
 def main2(inpt: TextIO, start: Optional[int], end: Optional[int]):
-    if lib.is_minus(start) or lib.is_minus(end):
+    if lib.is_minus(start):
+        itr = lib.tail(inpt, -start)
+        islice_stop = lib.minus(end, -start)
+        if lib.is_minus(islice_stop):
+            return
+
+        for line in itertools.islice(itr, islice_stop):
+            print(line, end='')
+        return
+
+    if lib.is_minus(end):
         lib.slice_with_list(inpt, [start, end])
         return
 
@@ -52,5 +62,9 @@ def main():
 
     if len_args == 1:
         main1(sys.stdin, args[0])
+    elif len_args == 2:
+        main2(sys.stdin, args[0], args[1])
+    elif len_args == 3:
+        main3(sys.stdin, args[0], args[1], args[2])
     else:
         lib.slice_with_list(sys.stdin, args)

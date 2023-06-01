@@ -1,9 +1,11 @@
 import collections
+import typing
 from typing import Any, Optional, TextIO
 from collections.abc import Iterator
 
 
 def slice_with_list(inpt: TextIO, args: list[Optional[int]]) -> None:
+    print('slice_with_list')
     len_args = len(args)
 
     if len_args == 1:
@@ -36,5 +38,11 @@ def tail(textio: TextIO, n: int) -> Iterator[str]:
     return iter(collections.deque(textio, maxlen=n))
 
 
-def is_minus(n: Optional[int]) -> bool:
+def is_minus(n: Optional[int]) -> typing.TypeGuard[int]:
     return n is not None and n < 0
+
+
+def minus(a: Optional[int], b: Optional[int]) -> Optional[int]:
+    if a is None or b is None:
+        return None
+    return a - b
