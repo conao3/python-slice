@@ -2,7 +2,7 @@ import collections
 import itertools
 import typing
 from typing import Any, Optional, TextIO
-from collections.abc import Iterator
+from collections.abc import Iterable, Iterator
 
 
 def slice_with_list(inpt: TextIO, args: list[Optional[int]]) -> None:
@@ -35,7 +35,7 @@ def consume(textio: Iterator[Any] | TextIO, n: int) -> None:
         next(textio, None)
 
 
-def tail(textio: TextIO, n: int) -> Iterator[str]:
+def tail(textio: Iterable[str], n: int) -> Iterator[str]:
     return iter(collections.deque(textio, maxlen=n))
 
 

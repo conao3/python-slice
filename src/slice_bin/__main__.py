@@ -1,6 +1,6 @@
 import itertools
 import sys
-from typing import Iterator, Optional, TextIO
+from typing import Iterable, Iterator, Optional, TextIO
 
 from . import lib
 
@@ -9,7 +9,7 @@ def usage():
     print("Usage: slice EXPRESSION")
 
 
-def generator_start_stop(inpt: TextIO, start_: Optional[int], stop_: Optional[int]) -> Iterator[str]:
+def generator_start_stop(inpt: Iterable[str], start_: Optional[int], stop_: Optional[int]) -> Iterator[str]:
     start = start_ or 0
     stop = stop_ or sys.maxsize
 
@@ -44,11 +44,12 @@ def main3(inpt: TextIO, args: list[Optional[int]]):
     end = args[1] or sys.maxsize
     step = args[2] or 1
 
+    lines: Iterable[str] = inpt
     if step < 0:
         step = -step
-        inpt: TextIO = iter(reversed(list(inpt)))
+        lines = reversed(list(inpt))
 
-    itr = generator_start_stop(inpt, start, end)
+    itr = generator_start_stop(lines, start, end)
     while (elm := next(itr, None)) is not None:
         print(elm, end='')
         lib.consume(itr, step - 1)
