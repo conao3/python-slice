@@ -1,10 +1,14 @@
-# slice
+<p align="center"><img src="docs/assets/banner.png" alt="slice: Filters stdin lines using Python's slice notation" width="880"></p>
+
+<p align="center"><strong>Filters stdin lines using Python's slice notation</strong></p>
+
+<p align="center"><a href="LICENSE"><img src="https://img.shields.io/github/license/conao3/python-slice" alt="License"></a> <a href="https://github.com/conao3/python-slice/stargazers"><img src="https://img.shields.io/github/stars/conao3/python-slice?style=flat" alt="GitHub stars"></a></p>
+
+<p align="center"><a href="#installation">Install</a> | <a href="#usage">Usage</a> | <a href="#license">License</a></p>
+
+<h1>slice</h1>
 
 A command-line tool that filters stdin using Python's slice notation.
-
-[![PyPI version](https://badge.fury.io/py/slice-bin.svg)](https://pypi.org/project/slice-bin/)
-[![Python](https://img.shields.io/pypi/pyversions/slice-bin.svg)](https://pypi.org/project/slice-bin/)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Overview
 
